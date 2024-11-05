@@ -40,5 +40,10 @@ public class Animals
     //    }
     //}
 
-    public string Info => $"{Description} <{Size}>"; //np. Dogs <3>
+    public virtual string Info => $"{Description} <{Size}>"; //np. Dogs <3>
+
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
 }

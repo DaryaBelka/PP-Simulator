@@ -53,9 +53,9 @@ public abstract class Creature
 
     public abstract int Power { get; }
 
-    public string Info
+    public abstract string Info
     {
-        get { return $"{Name} [{Level}]"; }
+        get;
     }   
     
     public void Upgrade()
@@ -83,6 +83,11 @@ public abstract class Creature
     public void Go(string directions)
     {
         Go(DirectionParser.Parse(directions));
+    }
+
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
     }
 
 }
