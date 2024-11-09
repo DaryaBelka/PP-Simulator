@@ -5,6 +5,7 @@ class Program
     static void Main()
     {
         Lab5a();
+        Lab5b();
     }
     static void Lab5a()
     {
@@ -33,6 +34,26 @@ class Program
 
     static void Lab5b()
     {
-  
+        try
+        {
+            var map = new SmallSquareMap(8);
+            Console.WriteLine($"Map size: {map.Size}");
+
+            var point1 = new Point(6, 7);
+            var point2 = new Point(10, 15);
+            Console.WriteLine($"Point {point1} is in the map: {map.Exist(point1)}"); 
+            Console.WriteLine($"Point {point2} is in the map: {map.Exist(point2)}");
+
+            var poczPoint = new Point(6, 5);
+            var nextPoint = map.Next(poczPoint, Direction.Left);
+            Console.WriteLine($"Next point: {nextPoint}");
+
+            var diagonalPoint = map.NextDiagonal(poczPoint, Direction.Up);
+            Console.WriteLine($"Diagonal point: {diagonalPoint}");
+        }
+        catch (ArgumentOutOfRangeException ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
     }
 }
