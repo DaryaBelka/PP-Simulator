@@ -17,11 +17,7 @@ public class Orc : Creature
 
     public void Hunt()
     {
-        _huntCount++;
-        if (_huntCount % 2 == 0)
-        {
-            Rage++;
-        }
+   
     }
 
     public override int Power => 7 * Level + 3 * Rage;
@@ -33,9 +29,7 @@ public class Orc : Creature
         Rage = rage;
     }
 
-    public override void SayHi() => Console.WriteLine(
-    $"Hi, I'm {Name}, my level is {Level}, my rage is {Rage}."
-);
+    public string Greeting { get; }
 
     public override string Info
     {
