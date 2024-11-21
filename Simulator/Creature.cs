@@ -78,8 +78,7 @@ public abstract class Creature
         return result;
     }
 
-    public string[] Go(string directionSeq) =>
-        Go(DirectionParser.Parse(directionSeq));
+  
 
     public override string ToString()
     {

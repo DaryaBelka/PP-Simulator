@@ -8,22 +8,36 @@ public class SmallSquareMapTests
     public void Constructor_ValidSize_ShouldSetSize()
     {
         // Arrange
-        int size = 10;
+        int sizeX = 10, sizeY = 10;
         // Act
-        var map = new SmallSquareMap(size);
+        var map = new SmallSquareMap(sizeX, sizeY);
         // Assert
-        Assert.Equal(size, map.Size);
+        Assert.Equal(sizeX, map.SizeX);
+        Assert.Equal(sizeY, map.SizeY);
+    }
+
+    [Fact]
+    public void Constructor_NonSquareDimensions_ShouldThrowArgumentException()
+    {
+        Assert.Throws<ArgumentException>(() => new SmallSquareMap(10, 15));
+    }
+
+    [Fact]
+    public void Constructor_MinimalSize_ShouldWork()
+    {
+        var map = new SmallSquareMap(5, 5);
+        Assert.Equal(5, map.SizeX);
+        Assert.Equal(5, map.SizeY);
     }
 
     [Theory]
-    [InlineData(4)]
-    [InlineData(21)]
-    public void Constructor_InvalidSize_ShouldThrowArgumentOutOfRangeException(int size)
+    [InlineData(4, 5)]
+    [InlineData(5, 4)]
+    [InlineData(21, 20)]
+    [InlineData(20, 21)]
+    public void Constructor_InvalidSize_ShouldThrowArgumentOutOfRangeException(int sizeX, int sizeY)
     {
-        // Act & Assert
-        // The way to check if method throws anticipated exception:
-        Assert.Throws<ArgumentOutOfRangeException>(() =>
-             new SmallSquareMap(size));
+        Assert.Throws<ArgumentOutOfRangeException>(() => new SmallSquareMap(sizeX, sizeY));
     }
 
     [Theory]
@@ -31,14 +45,15 @@ public class SmallSquareMapTests
     [InlineData(6, 1, 5, false)]
     [InlineData(19, 19, 20, true)]
     [InlineData(20, 20, 20, false)]
-    public void Exist_ShouldReturnCorrectValue(int x, int y,
-        int size, bool expected)
+    public void Exist_ShouldReturnCorrectValue(int x, int y, int size, bool expected)
     {
         // Arrange
-        var map = new SmallSquareMap(size);
+        var map = new SmallSquareMap(size, size);
         var point = new Point(x, y);
+
         // Act
         var result = map.Exist(point);
+
         // Assert
         Assert.Equal(expected, result);
     }
@@ -51,29 +66,30 @@ public class SmallSquareMapTests
     public void Next_ShouldReturnCorrectNextPoint(int x, int y, Direction direction, int expectedX, int expectedY)
     {
         // Arrange
-        var map = new SmallSquareMap(20); 
+        var map = new SmallSquareMap(20, 20);
         var point = new Point(x, y);
 
         // Act
         var nextPoint = map.Next(point, direction);
 
         // Assert
-        Assert.Equal(new Point(expectedX, expectedY), nextPoint); 
+        Assert.Equal(new Point(expectedX, expectedY), nextPoint);
     }
 
     [Theory]
-    [InlineData(19, 19, Direction.Up, 19, 19)]  
-    [InlineData(0, 0, Direction.Left, 0, 0)]     
+    [InlineData(19, 19, Direction.Up, 19, 19)]
+    [InlineData(0, 0, Direction.Left, 0, 0)]
     [InlineData(15, 10, Direction.Right, 16, 9)]
     [InlineData(1, 0, Direction.Down, 1, 0)]
-    public void NextDiagonal_ShouldReturnCorrectNextPoint(int x, int y,
-        Direction direction, int expectedX, int expectedY)
+    public void NextDiagonal_ShouldReturnCorrectNextPoint(int x, int y, Direction direction, int expectedX, int expectedY)
     {
         // Arrange
-        var map = new SmallSquareMap(20);
+        var map = new SmallSquareMap(20, 20);
         var point = new Point(x, y);
+
         // Act
         var nextPoint = map.NextDiagonal(point, direction);
+
         // Assert
         Assert.Equal(new Point(expectedX, expectedY), nextPoint);
     }
