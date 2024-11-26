@@ -1,11 +1,9 @@
 ﻿namespace Simulator.Maps;
 
-/// <summary>
-/// Map of points.
-/// </summary>
 public abstract class Map
 {
     private readonly Rectangle bounds;
+
     public int SizeX { get; }
     public int SizeY { get; }
     
@@ -23,7 +21,20 @@ public abstract class Map
         SizeY = sizeY;
 
         bounds = new Rectangle(0, 0, SizeX - 1, SizeY - 1);
+      
     }
+
+    public abstract void Add(Creature creature, Point position);
+    public abstract void Remove(Creature creature, Point position);
+    public void Move(Creature creature, Point positionFrom, Point positionTo)
+    {
+        if (!Exist(positionFrom) || !Exist(positionTo)) throw new ArgumentException("Jedna z pozycji jest poza mapą!");
+        Remove(creature, positionFrom);
+    }
+
+    public abstract List<Creature>? At(Point position);
+
+    public abstract List<Creature>? At(int x, int y);
     /// <summary>
     /// Check if give point belongs to the map.
     /// </summary>
