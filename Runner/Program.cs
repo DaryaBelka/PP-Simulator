@@ -2,13 +2,13 @@
 
 namespace Simulator;
 
-class Program
+public class Program
 {
     static void Main()
     {
-        Lab5a();
-        Lab5b();
+ 
     }
+
     static void Lab5a()
     {
         try

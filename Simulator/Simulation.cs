@@ -119,4 +119,9 @@ public class Simulation
             Finished = true;
         }
     }
+
+    public void Run()
+    {
+        throw new NotImplementedException();
+    }
 }
