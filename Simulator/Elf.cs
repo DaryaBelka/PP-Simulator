@@ -4,6 +4,7 @@ public class Elf : Creature
 {
     private int _agility;
     private int _singCount;
+    public override char Symbol => 'E';
     public int Agility
     {
         get { return _agility; }

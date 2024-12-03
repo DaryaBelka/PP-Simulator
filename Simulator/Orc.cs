@@ -4,6 +4,7 @@ public class Orc : Creature
 {
     private int _rage;
     private int _huntCount;
+    public override char Symbol => 'O';
     public int Rage
     {
         get { return _rage; }

@@ -57,6 +57,7 @@ public Map? Map { get; private set; }
     public abstract int Power { get; }
 
     public abstract string Info { get; }
+    public virtual char Symbol => 'C';
 
     public void Upgrade()
     { 
