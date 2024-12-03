@@ -12,11 +12,7 @@ internal class Program
 
         SmallSquareMap map = new(5);
 
-        List<Creature> creatures = new List<Creature>
-        {
-            new Orc("Gorbag"),
-            new Elf("Elandor")
-        };
+        List<IMappable> creatures = [new Orc("Gorbag"), new Elf("Elandor")];
 
         List<Point> points = new List<Point>
         {
@@ -33,7 +29,9 @@ internal class Program
         Console.WriteLine("SIMULATION!");
         Console.WriteLine();
         Console.WriteLine("Starting positions:");
- 
-        mapVisualizer.Draw(); 
+
+        simulation.Turn();
+        mapVisualizer.Draw();
+        
     }
 }

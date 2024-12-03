@@ -13,7 +13,7 @@ public class Simulation
     /// <summary>
     /// Creatures moving on the map.
     /// </summary>
-    public List<Creature> Creatures { get; }
+    public List<IMappable> Mappables { get; }
 
     /// <summary>
     /// Starting positions of creatures.
@@ -40,8 +40,9 @@ public class Simulation
     /// <summary>
     /// Creature which will be moving current turn.
     /// </summary>
-    public Creature CurrentCreature { 
-        get => Creatures[_index % Creatures.Count]; 
+    public IMappable CurrentMappable
+    { 
+        get => Mappables[_index % Mappables.Count]; 
     }
 
     /// <summary>
@@ -58,15 +59,15 @@ public class Simulation
     /// if number of creatures differs from 
     /// number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<Creature> creatures,
+    public Simulation(Map map, List<IMappable> mappables,
         List<Point> positions, string moves)
     {
-        if (creatures == null || creatures.Count == 0)
+        if (mappables == null || mappables.Count == 0)
         {
             throw new ArgumentException("Creature list cannot be empty.");
         }
 
-        if (positions == null || positions.Count != creatures.Count)
+        if (positions == null || positions.Count != mappables.Count)
         {
             throw new ArgumentException("The number of initial positions does not match the number of creatures.");
         }
@@ -77,14 +78,14 @@ public class Simulation
         }
 
         Map = map ?? throw new ArgumentNullException(nameof(map));
-        Creatures = creatures;
+        Mappables = mappables;
         Positions = positions;
         Moves = moves;
 
         // Initialize creatures' starting positions on the map.
-        for (int i = 0; i < Creatures.Count; i++)
+        for (int i = 0; i < Mappables.Count; i++)
         {
-            creatures[i].InitMapAndPosition(map, positions[i]);
+            mappables[i].InitMapAndPosition(map, positions[i]);
         }
     }
 
@@ -111,7 +112,7 @@ public class Simulation
             throw new InvalidOperationException($"Invalid move character: '{moveChar}'. Valid moves: 'U', 'D', 'L', 'R'.");
         }
 
-        CurrentCreature.Go(direction);
+        CurrentMappable.Go(direction);
         _index++;
 
         if (_index >= Moves.Length)
@@ -120,8 +121,5 @@ public class Simulation
         }
     }
 
-    public void Run()
-    {
-        throw new NotImplementedException();
-    }
+
 }
