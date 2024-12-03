@@ -6,7 +6,6 @@ public class Program
 {
     static void Main()
     {
- 
     }
 
     static void Lab5a()
@@ -39,7 +38,7 @@ public class Program
         try
         {
             var map = new SmallSquareMap(8);
-            Console.WriteLine($"Map size: {map.Size}");
+            Console.WriteLine($"Map size: {map.SizeX}");
 
             var point1 = new Point(6, 7);
             var point2 = new Point(10, 15);

@@ -93,6 +93,7 @@ public class Simulation
     /// Makes one move of current creature in current direction.
     /// Throw error if simulation is finished.
     /// </summary>
+
     public void Turn()
     {
         if (Finished)
@@ -120,6 +121,4 @@ public class Simulation
             Finished = true;
         }
     }
-
-
 }
