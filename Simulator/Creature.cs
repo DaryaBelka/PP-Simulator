@@ -5,7 +5,7 @@ namespace Simulator;
 public abstract class Creature : IMappable
 {
 
-public Map? Map { get; private set; }
+    public Map? Map { get; private set; }
     public Point Position { get; private set; }
 
     private string _name = "Unknown";
