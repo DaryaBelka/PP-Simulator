@@ -36,7 +36,6 @@ public class Animals : IMappable
         }
     }
 
-
     //public string Info
     //{
     //    get
@@ -50,10 +49,12 @@ public class Animals : IMappable
     public virtual void Go(Direction direction)
     {
         if (Map == null) throw new InvalidOperationException("Animal cannot move since it's not on the map!");
+
         var newPosition = GetNewPosition(direction);
 
-    Map.Move(this, Position, newPosition);
-    Position = newPosition;
+        Map.Remove(this, Position);
+        Map.Add(this, newPosition);
+        Position = newPosition;
     }
 
     public virtual void InitMapAndPosition(Map map, Point point)

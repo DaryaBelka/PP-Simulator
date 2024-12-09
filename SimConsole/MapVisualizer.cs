@@ -1,10 +1,5 @@
 ﻿using Simulator.Maps;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace Simulator;
+using Simulator;
 
 public class MapVisualizer
 {
@@ -17,7 +12,7 @@ public class MapVisualizer
 
     public void Draw()
     {
-        Console.OutputEncoding = Encoding.UTF8;
+        Console.OutputEncoding = System.Text.Encoding.UTF8;
 
         Console.Write(Box.TopLeft);
         for (int x = 0; x < _map.SizeX - 1; x++)
@@ -26,7 +21,6 @@ public class MapVisualizer
         }
         Console.WriteLine($"{Box.Horizontal}{Box.TopRight}");
 
-
         for (int y = _map.SizeY - 1; y >= 0; y--)
         {
             Console.Write(Box.Vertical);
@@ -34,12 +28,10 @@ public class MapVisualizer
             {
                 var creatures = _map.At(x, y);
 
-                
                 if (creatures != null && creatures.Count > 1)
                 {
                     Console.Write("X");
                 }
-                
                 else if (creatures?.Count == 1)
                 {
                     var creature = creatures.First();

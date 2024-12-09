@@ -1,46 +1,55 @@
 ﻿using Simulator;
 using Simulator.Maps;
-using System.Text;
+using System.Collections.Generic;
 
-namespace SimConsole;
-
-internal class Program
+namespace SimConsole
 {
-    static void Main(string[] args)
+    internal class Program
     {
-        Console.OutputEncoding = Encoding.UTF8;
-
-        SmallSquareMap map = new(5);
-        SmallTorusMap torusMap = new(6, 5);
-
-        List<IMappable> creatures = new()
+        static void Main(string[] args)
         {
-            new Elf("Elandor"),
-            new Orc("Gorbag"),
-            new Animals { Description = "Dog", Size = 3 },
-        };
+            Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-        List<Point> points = new List<Point>
-        {
-            new Point(2, 2),
-            new Point(3, 1),
-            new Point(4, 1),
+            Map map = new BigBounceMap(8, 6);
 
-        };
+            List<IMappable> creatures = new List<IMappable>
+            {
+                new Elf("Elandor"),
+                new Orc("Gorbag"),
+                new Animals { Description = "Rabbit", Size = 3 },
+                new Birds { Description = "Eagle", Size = 2, CanFly = true  },
+                new Birds { Description = "Ostrich", Size = 5, CanFly = false },
+            };
 
-        string moves = "dlrludl";
+         
+            List<Point> positions = new List<Point>
+            {
+                new Point(2, 2),
+                new Point(3, 1),
+                new Point(4, 1),
+                new Point(1, 3),
+                new Point(6, 4),
+            };
 
-        Simulation simulation = new Simulation(torusMap, creatures, points, moves);
+            string moves = "udlrudlrudlrudlrudlr"; 
+        
+            var simulation = new Simulation(map, creatures, positions, moves);
+          
+            while (!simulation.Finished)
+            {
+                Console.Clear();
+                Console.WriteLine("SIMULATION!");
+                Console.WriteLine($"Turn {simulation._index + 1}");
 
-        MapVisualizer mapVisualizer = new MapVisualizer(torusMap);
+                simulation.Turn();
+                
+                var mapVisualizer = new MapVisualizer(map);
+                mapVisualizer.Draw();
 
-        Console.WriteLine("SIMULATION!");
-        Console.WriteLine();
-        Console.WriteLine("Starting positions:");
+                System.Threading.Thread.Sleep(500);
+            }
 
-        mapVisualizer.Draw();
-        var turn = 1;
-
-        turn++;
+            Console.WriteLine("Simulation finished!");
+        }
     }
 }

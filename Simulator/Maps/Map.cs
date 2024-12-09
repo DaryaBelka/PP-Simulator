@@ -30,6 +30,7 @@ public abstract class Map
     {
         if (!Exist(positionFrom) || !Exist(positionTo)) throw new ArgumentException("Jedna z pozycji jest poza mapą!");
         Remove(mappable, positionFrom);
+        Add(mappable, positionTo);
     }
 
     public abstract List<IMappable>? At(Point position);
