@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Simulator.Maps;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,9 @@ public class SimulationHistory
         SizeY = _simulation.Map.SizeY;
         Run();
     }
+
+    public string GetMoves() => _simulation.Moves;
+    public Map GetMap() => _simulation.Map;
 
     private void Run()
     {
@@ -50,4 +54,5 @@ public class SimulationHistory
         }
 
     }
+
 }
