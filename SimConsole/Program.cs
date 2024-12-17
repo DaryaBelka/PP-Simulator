@@ -11,10 +11,10 @@ internal class Program
     {
         Console.OutputEncoding = System.Text.Encoding.UTF8;
 
-       
-        Map map = new BigBounceMap(8, 6);
 
-        List<IMappable> creatures = new List<IMappable>
+        BigBounceMap map = new BigBounceMap(8, 6);
+
+        List<IMappable> creatures = new()
         {
             new Elf("Elandor"),
             new Orc("Gorbag"),
@@ -23,7 +23,7 @@ internal class Program
             new Birds { Description = "Ostrich", Size = 5, CanFly = false },
         };
 
-        List<Point> positions = new List<Point>
+        List<Point> positions = new()
         {
             new Point(2, 2),
             new Point(3, 1),
@@ -43,7 +43,15 @@ internal class Program
         Console.WriteLine("Starting positions:");
 
         mapVisualizer.Draw();
+        var turn = 0;
 
+        var history = new SimulationHistory(simulation);
+        var logVisualizer = new LogVisualizer(history);
+
+        logVisualizer.Draw(5);
+        logVisualizer.Draw(10);
+        logVisualizer.Draw(15);
+        logVisualizer.Draw(20);
 
 
     }
